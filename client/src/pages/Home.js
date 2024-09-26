@@ -13,15 +13,21 @@ function Home() {
               Open App 1
             </button>
           </Link>
-          <button className="app-button" onClick={() => alert('App 2')}>
-            Open App 2
-          </button>
-          <button className="app-button" onClick={() => alert('App 3')}>
-            Open App 3
-          </button>
-          <button className="app-button" onClick={() => alert('App 4')}>
-            Open App 4
-          </button>
+          <Link to="/app2">
+            <button className="app-button">
+              Open App 2
+            </button>
+          </Link>
+          <Link to="/app3">
+            <button className="app-button">
+              Open App 3
+            </button>
+          </Link>
+          <Link to="/app4">
+            <button className="app-button">
+              Open App 4
+            </button>
+          </Link>
         </div>
       </header>
     </div>
