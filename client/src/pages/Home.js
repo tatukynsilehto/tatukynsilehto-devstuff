@@ -10,7 +10,7 @@ function Home() {
         <div className="button-container">
           <Link to="/app1">
             <button className="app-button">
-              Open App 1
+              2048
             </button>
           </Link>
           <Link to="/app2">

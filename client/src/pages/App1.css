@@ -1,0 +1,75 @@
+.App1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212; /* Match homepage background */
+    color: #fff;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #fff;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 10px;
+    background-color: #1e1e1e; /* Darker grid background */
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .grid-row {
+    display: contents;
+  }
+  
+  .grid-cell {
+    width: 100px;
+    height: 100px;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    color: #fff;
+  }
+  
+  .grid-cell[data-value="0"] {
+    background-color: #444; /* Color for empty cells */
+  }
+  
+  .grid-cell[data-value="2"],
+  .grid-cell[data-value="4"] {
+    background-color: #ffcc80; /* Lighter for low values */
+  }
+  
+  .grid-cell[data-value="8"] {
+    background-color: #ffab40;
+  }
+  
+  .grid-cell[data-value="16"] {
+    background-color: #ff9100;
+  }
+  
+  .grid-cell[data-value="32"] {
+    background-color: #ff6d00;
+  }
+  
+  .grid-cell[data-value="64"] {
+    background-color: #ff3d00;
+  }
+  
+  .grid-cell[data-value="128"],
+  .grid-cell[data-value="256"],
+  .grid-cell[data-value="512"],
+  .grid-cell[data-value="1024"],
+  .grid-cell[data-value="2048"] {
+    background-color: #ffd600;
+  }
