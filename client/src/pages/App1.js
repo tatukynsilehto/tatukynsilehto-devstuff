@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App1.css';
 
-// Helper function to get a random position
+// Helper functions (unchanged)
 function getRandomPosition() {
   return Math.floor(Math.random() * 4);
 }
 
-// Helper function to add a random "2" or "4" to the grid
 function addRandomNumber(grid) {
   let newGrid = [...grid];
   let added = false;
@@ -22,7 +22,6 @@ function addRandomNumber(grid) {
   return newGrid;
 }
 
-// Initialize the grid with two random numbers
 function generateInitialGrid() {
   let grid = [
     [0, 0, 0, 0],
@@ -35,11 +34,10 @@ function generateInitialGrid() {
   return grid;
 }
 
-// Helper functions to move and merge rows
 function slide(row) {
-  let newRow = row.filter(val => val); // Remove all zeroes
+  let newRow = row.filter(val => val);
   while (newRow.length < 4) {
-    newRow.push(0); // Add zeroes at the end
+    newRow.push(0);
   }
   return newRow;
 }
@@ -54,10 +52,9 @@ function combine(row) {
   return row;
 }
 
-// Main function to handle a move in one direction
 function moveGrid(grid, direction) {
   let newGrid = [...grid];
-  
+
   if (direction === 'left') {
     for (let i = 0; i < 4; i++) {
       newGrid[i] = slide(combine(slide(newGrid[i])));
@@ -90,6 +87,19 @@ function moveGrid(grid, direction) {
 function App1() {
   const [grid, setGrid] = useState(generateInitialGrid());
 
+  // Load the game state from the backend
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/load-state")
+      .then(response => {
+        if (response.data.grid) {
+          setGrid(response.data.grid);
+        }
+      })
+      .catch(error => {
+        console.error("Error loading game state:", error);
+      });
+  }, []);
+
   const handleKeyPress = (e) => {
     let newGrid = [...grid];
     if (e.key === 'ArrowUp') {
@@ -102,14 +112,22 @@ function App1() {
       newGrid = moveGrid(grid, 'right');
     }
 
-    // Check if the grid actually changed before adding a new number
     if (JSON.stringify(grid) !== JSON.stringify(newGrid)) {
       newGrid = addRandomNumber(newGrid);
+      setGrid(newGrid);
+
+      // Save the game state to the backend
+      axios.post("http://localhost:5000/api/save-state", { grid: newGrid })
+        .then(() => {
+          console.log("Game state saved!");
+        })
+        .catch(error => {
+          console.error("Error saving game state:", error);
+        });
     }
-    setGrid(newGrid);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
