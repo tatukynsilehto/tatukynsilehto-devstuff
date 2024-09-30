@@ -5,8 +5,6 @@ import App1 from './pages/App1';
 import App2 from './pages/App2';
 import App3 from './pages/App3';
 import App4 from './pages/App4';
-const gameRoutes = require('./routes/gameRoutes');
-App1.use('/api/game', gameRoutes);
 
 function App() {
   return (
