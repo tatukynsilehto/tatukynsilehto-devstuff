@@ -63,18 +63,16 @@ app.post('/api/save', async (req, res) => {
   }
 });
 
-app.get('/api/load/:userId', async (req, res) => {
-  const { userId } = req.params;
-
-  try {
-    const game = await Game.findOne({ userId });
-    if (!game) return res.status(404).json({ message: 'Game not found' });
-
-    res.status(200).json(game);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to load game state' });
-  }
-});
+app.get('/api/load-state', async (req, res) => {
+    const userId = "defaultUser";
+    try {
+      const game = await Game.findOne({ userId });
+      if (!game) return res.status(404).json({ message: 'Game not found' });
+      res.status(200).json(game);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to load game state' });
+    }
+  });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

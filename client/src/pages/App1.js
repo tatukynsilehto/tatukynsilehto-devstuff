@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App1.css';
 
-// Helper functions (unchanged)
+
 function getRandomPosition() {
   return Math.floor(Math.random() * 4);
 }
@@ -87,7 +87,7 @@ function moveGrid(grid, direction) {
 function App1() {
   const [grid, setGrid] = useState(generateInitialGrid());
 
-  // Load the game state from the backend
+  
   useEffect(() => {
     axios.get("http://localhost:5000/api/load-state")
       .then(response => {
@@ -116,8 +116,8 @@ function App1() {
       newGrid = addRandomNumber(newGrid);
       setGrid(newGrid);
 
-      // Save the game state to the backend
-      axios.post("http://localhost:5000/api/save-state", { grid: newGrid })
+      
+      axios.post("http://localhost:5000/api/save", { grid: newGrid })
         .then(() => {
           console.log("Game state saved!");
         })
@@ -128,6 +128,33 @@ function App1() {
   };
 
   useEffect(() => {
+    const handleKeyPress = (e) => {
+      let newGrid = [...grid];
+      if (e.key === 'ArrowUp') {
+        newGrid = moveGrid(grid, 'up');
+      } else if (e.key === 'ArrowDown') {
+        newGrid = moveGrid(grid, 'down');
+      } else if (e.key === 'ArrowLeft') {
+        newGrid = moveGrid(grid, 'left');
+      } else if (e.key === 'ArrowRight') {
+        newGrid = moveGrid(grid, 'right');
+      }
+  
+      if (JSON.stringify(grid) !== JSON.stringify(newGrid)) {
+        newGrid = addRandomNumber(newGrid);
+        setGrid(newGrid);
+  
+        
+        axios.post("http://localhost:5000/api/save", { grid: newGrid })
+          .then(() => {
+            console.log("Game state saved!");
+          })
+          .catch(error => {
+            console.error("Error saving game state:", error);
+          });
+      }
+    };
+  
     window.addEventListener('keydown', handleKeyPress);
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
@@ -153,3 +180,6 @@ function App1() {
 }
 
 export default App1;
+
+
+//TODO FIX BLOCK MOVEMENT

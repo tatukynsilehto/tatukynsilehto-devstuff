@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #121212; /* Match homepage background */
+    background-color: #121212;
     color: #fff;
   }
   
@@ -19,8 +19,7 @@
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: repeat(4, 100px);
     gap: 10px;
-    background-color: #1e1e1e; /* Darker grid background */
-    padding: 20px;
+    background-color: #1e1e1e;
     border-radius: 10px;
   }
   
@@ -42,12 +41,12 @@
   }
   
   .grid-cell[data-value="0"] {
-    background-color: #444; /* Color for empty cells */
+    background-color: #444;
   }
   
   .grid-cell[data-value="2"],
   .grid-cell[data-value="4"] {
-    background-color: #ffcc80; /* Lighter for low values */
+    background-color: #ffcc80;
   }
   
   .grid-cell[data-value="8"] {
