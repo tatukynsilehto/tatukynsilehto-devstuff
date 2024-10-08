@@ -15,7 +15,7 @@ function Home() {
           </Link>
           <Link to="/app2">
             <button className="app-button">
-              Open App 2
+              TicTacToe
             </button>
           </Link>
           <Link to="/app3">
