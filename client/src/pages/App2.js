@@ -72,4 +72,6 @@ function calculateWinner(board) {
   return null;
 }
 
+//TODO History?
+
 export default TicTacToe;
